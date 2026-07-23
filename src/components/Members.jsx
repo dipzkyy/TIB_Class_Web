@@ -4,87 +4,80 @@ import { useInView } from 'react-intersection-observer';
 import { Search } from 'lucide-react';
 
 const membersData = [
-  { 
-    id: 1, 
-    name: "Diva Islamy Rizky Akbar", 
-    nim: "25104410033", 
-    role: "Mahasiswa",
-    interests: ["Fullstack Web", "UI/UX", "Python"], 
-    ig: "dipa_rizky" 
-  },
-  { 
-    id: 2, 
-    name: "Tahta Alfina Pagelaran", 
-    nim: "25104410040", 
-    role: "Mahasiswa",
-    interests: ["Backend", "Database", "Analyst"], 
-    ig: "tahtaaf" 
-  },
-  { 
-    id: 3, 
-    name: "Sugeng Tambler", 
-    nim: "25104410035", 
-    role: "Mahasiswa",
-    interests: ["Algorithms", "Software Eng", "Java"], 
-    ig: "rawr_sugeng" 
-  },
-  { 
-    id: 4, 
-    name: "Budi Santoso", 
-    nim: "25104410021", 
-    role: "Mahasiswa",
-    interests: ["Mobile Dev", "Flutter", "Kotlin"], 
-    ig: "budi.dev" 
-  },
-  { 
-    id: 5, 
-    name: "Siti Aminah", 
-    nim: "25104410018", 
-    role: "Mahasiswa",
-    interests: ["Data Science", "Machine Learning"], 
-    ig: "siti_ai" 
-  },
-  { 
-    id: 6, 
-    name: "Rizky Firmansyah", 
-    nim: "25104410042", 
-    role: "Mahasiswa",
-    interests: ["Cyber Security", "Networking"], 
-    ig: "rizky.sec" 
-  }
+  // Pengurus
+  { id: 1, name: "Mochamad Nazar Sirot", role: "Ketua Kelas" },
+  { id: 2, name: "Tahta Alfina Pagelaran", role: "Sekretaris" },
+  { id: 3, name: "Jazilatun Nabilla", role: "Bendahara" },
+  { id: 4, name: "Zainun Abidin", role: "Wakil Ketua Kelas" },
+  // Anggota
+  { id: 5, name: "Adelia Wahyu Bima Sakti", role: "Anggota" },
+  { id: 6, name: "Aisha Calluella Putri Wijaya", role: "Anggota" },
+  { id: 7, name: "Alifiyan Rezky Pratama", role: "Anggota" },
+  { id: 8, name: "Aswin Akmal Rizantha", role: "Anggota" },
+  { id: 9, name: "Bayu Putra Pratama", role: "Anggota" },
+  { id: 10, name: "Devika Novalina", role: "Anggota" },
+  { id: 11, name: "Dhia Al Fitria", role: "Anggota" },
+  { id: 12, name: "Dila Rahma Wakhida", role: "Anggota" },
+  { id: 13, name: "Diva Islamy Rizky Akbar", role: "Anggota" },
+  { id: 14, name: "Ema Netasari", role: "Anggota" },
+  { id: 15, name: "Fajar Dwi Prayitno", role: "Anggota" },
+  { id: 16, name: "Febrinda Eka Prasetyo", role: "Anggota" },
+  { id: 17, name: "Fibi Dita Salsabilla", role: "Anggota" },
+  { id: 18, name: "Fidlela Latifa Salsabila", role: "Anggota" },
+  { id: 19, name: "Gladis Ayu Diapitaloka", role: "Anggota" },
+  { id: 20, name: "Meisya Rozzaaqy Widya Putri", role: "Anggota" },
+  { id: 21, name: "Mohamad Rifky Ramadani", role: "Anggota" },
+  { id: 22, name: "Muhammad Fachri Fairuz", role: "Anggota" },
+  { id: 23, name: "Muhammad Rizki Desca Firmansyah", role: "Anggota" },
+  { id: 24, name: "Muhamad Naufal Afrizal", role: "Anggota" },
+  { id: 25, name: "Nadia Mecca Aurellia", role: "Anggota" },
+  { id: 26, name: "Nadila Ristanti", role: "Anggota" },
+  { id: 27, name: "Nahrul Mubarok", role: "Anggota" },
+  { id: 28, name: "Raffi Ahmad Alfahrezy", role: "Anggota" },
+  { id: 29, name: "Rendra Adnan Farid", role: "Anggota" },
+  { id: 30, name: "Reyhan Arsa Mulia Gutama", role: "Anggota" },
+  { id: 31, name: "Reynara Putra Ramadhan", role: "Anggota" },
+  { id: 32, name: "Rijaldi Aziz Nur Khamim", role: "Anggota" },
+  { id: 33, name: "Shelma A’yunina Ro’ifin", role: "Anggota" },
+  { id: 34, name: "Talita Almira Esfiana", role: "Anggota" },
+  { id: 35, name: "Unggul Wahyudiningrat Eka Atmaja", role: "Anggota" }
 ];
 
 const Members = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
-  const filteredMembers = membersData.filter(member => 
-    member.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    member.nim.includes(searchQuery)
+  // Filter hanya berdasarkan nama (NIM sudah dihapus)
+  const filteredMembers = membersData.filter(member =>
+    member.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
-    <section id="members" className="py-24 bg-background relative overflow-hidden">
-      <div className="absolute top-[10%] right-[-5%] w-[40rem] h-[40rem] bg-secondary/10 rounded-full blur-[120px] -z-10" />
-      <div className="absolute bottom-[10%] left-[-10%] w-[35rem] h-[35rem] bg-accent/10 rounded-full blur-[100px] -z-10" />
+    <section id="members" className="py-20 md:py-24 bg-background relative overflow-hidden">
+      {/* Efek blur hanya untuk desktop */}
+      <div className="hidden md:block absolute top-[10%] right-[-5%] w-[30rem] h-[30rem] bg-secondary/10 rounded-full blur-[100px] -z-10 transform-gpu" />
 
       <div className="container mx-auto px-6 md:px-12 max-w-7xl">
-        <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
+        <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
             className="w-full md:w-1/2"
           >
-            <span className="text-primary font-semibold tracking-wider text-sm uppercase">Keluarga Besar</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-dark mt-2 mb-4">Anggota Kelas</h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary rounded-full" />
+            <span className="text-primary font-semibold tracking-wider text-xs md:text-sm uppercase">
+              Keluarga Besar
+            </span>
+            <h2 className="text-2xl md:text-4xl font-bold text-dark mt-2 mb-3">
+              Anggota Kelas
+            </h2>
+            <div className="w-16 md:w-20 h-1 bg-gradient-to-r from-primary to-secondary rounded-full" />
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
             className="w-full md:w-1/2 max-w-md"
           >
             <div className="relative group">
@@ -93,82 +86,62 @@ const Members = () => {
               </div>
               <input
                 type="text"
-                placeholder="Cari nama atau NIM..."
+                placeholder="Cari nama anggota..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3.5 glass bg-white/70 border-slate-200 focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 rounded-xl outline-none transition-all duration-300 text-slate-700 font-medium shadow-sm"
+                className="w-full pl-12 pr-4 py-3 glass bg-white/80 border-slate-200 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-xl outline-none transition-all duration-200 text-slate-700 font-medium shadow-sm text-sm md:text-base"
               />
             </div>
           </motion.div>
         </div>
 
-        <motion.div ref={ref} className="min-h-[400px]">
+        <motion.div ref={ref} className="min-h-[350px]">
           <AnimatePresence mode="popLayout">
             {filteredMembers.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredMembers.map((member, index) => (
                   <motion.div
                     layout
-                    initial={{ opacity: 0, scale: 0.9 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.3, delay: index * 0.04 }}
                     key={member.id}
-                    className="glass bg-white/80 rounded-[2rem] p-6 hover:-translate-y-2 transition-transform duration-300 hover:shadow-xl border border-white flex flex-col items-center text-center group"
+                    className="glass bg-white/90 rounded-2xl p-6 hover:-translate-y-1.5 transition-transform duration-300 hover:shadow-lg border border-white flex flex-col items-center text-center group transform-gpu"
                   >
-                    <div className="relative mb-5">
-                      <div className="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-full blur-md opacity-40 group-hover:opacity-70 transition-opacity duration-300" />
-                      <img 
-                        src={`https://ui-avatars.com/api/?name=${encodeURIComponent(member.name)}&background=2563EB&color=fff&size=128&bold=true`} 
-                        alt={member.name} 
-                        className="relative w-24 h-24 rounded-full border-4 border-white shadow-md object-cover"
+                    <div className="relative mb-4">
+                      <div className="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-full blur-sm opacity-30 group-hover:opacity-60 transition-opacity duration-300" />
+                      <img
+                        src={`https://ui-avatars.com/api/?name=${encodeURIComponent(member.name)}&background=2563EB&color=fff&size=128&bold=true`}
+                        alt={member.name}
+                        className="relative w-20 h-20 rounded-full border-4 border-white shadow-md object-cover"
+                        loading="lazy"
                       />
                     </div>
 
-                    <h3 className="text-xl font-bold text-dark mb-1 leading-tight group-hover:text-primary transition-colors">
+                    <h3 className="text-lg font-bold text-dark mb-1 leading-tight group-hover:text-primary transition-colors">
                       {member.name}
                     </h3>
-                    <p className="text-slate-500 font-medium text-sm mb-4 bg-slate-100 px-3 py-1 rounded-full">
-                      NIM: {member.nim}
-                    </p>
 
-                    <div className="flex flex-wrap justify-center gap-2 mb-6 w-full">
-                      {member.interests.map((interest, idx) => (
-                        <span key={idx} className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-primary/5 text-primary border border-primary/10">
-                          {interest}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="mt-auto w-full pt-4 border-t border-slate-100 flex justify-center">
-                      <a 
-                        href={`https://instagram.com/${member.ig}`} 
-                        target="_blank" 
-                        rel="noreferrer"
-                        className="flex items-center gap-2 text-slate-500 hover:text-[#E1306C] transition-colors font-medium text-sm"
-                      >
-                        <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                          <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-                        </svg>
-                        <span>@{member.ig}</span>
-                      </a>
-                    </div>
+                    <span className="text-sm font-medium text-primary bg-primary/10 px-4 py-1.5 rounded-full">
+                      {member.role}
+                    </span>
                   </motion.div>
                 ))}
               </div>
             ) : (
-              <motion.div 
-                initial={{ opacity: 0 }} 
-                animate={{ opacity: 1 }} 
-                className="flex flex-col items-center justify-center py-20 text-center"
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex flex-col items-center justify-center py-16 text-center"
               >
-                <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mb-4">
-                  <Search className="w-8 h-8 text-slate-400" />
+                <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-3">
+                  <Search className="w-6 h-6 text-slate-400" />
                 </div>
-                <h3 className="text-xl font-bold text-dark mb-2">Pencarian Tidak Ditemukan</h3>
-                <p className="text-slate-500">Tidak ada anggota dengan nama atau NIM "{searchQuery}"</p>
+                <h3 className="text-lg font-bold text-dark mb-1">Pencarian Tidak Ditemukan</h3>
+                <p className="text-slate-500 text-sm">
+                  Tidak ada anggota dengan nama "{searchQuery}"
+                </p>
               </motion.div>
             )}
           </AnimatePresence>

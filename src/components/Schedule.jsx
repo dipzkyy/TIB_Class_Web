@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Clock, MapPin, BookOpen } from 'lucide-react';
 
-// Data Dummy Jadwal - Bisa disesuaikan nanti
 const scheduleData = [
   {
     id: 1,
@@ -46,55 +45,45 @@ const scheduleData = [
   }
 ];
 
-// Varian animasi untuk parent dan children (stagger effect)
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.15
-    }
+    transition: { staggerChildren: 0.1 }
   }
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 20 },
   visible: { 
     opacity: 1, 
     y: 0,
-    transition: { duration: 0.5, ease: "easeOut" }
+    transition: { duration: 0.4, ease: "easeOut" }
   }
 };
 
 const Schedule = () => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <section id="schedule" className="py-24 bg-background relative overflow-hidden">
+    <section id="schedule" className="py-20 md:py-24 bg-background relative overflow-hidden">
       
-      {/* Dekorasi Background */}
-      <div className="absolute top-[20%] left-[-5%] w-[30rem] h-[30rem] bg-secondary/10 rounded-full blur-[100px] -z-10" />
-      <div className="absolute bottom-[-10%] right-[-5%] w-[25rem] h-[25rem] bg-primary/10 rounded-full blur-[80px] -z-10" />
+      {/* Offload Blur to Desktop Only */}
+      <div className="hidden md:block absolute top-[20%] left-[-5%] w-[25rem] h-[25rem] bg-secondary/10 rounded-full blur-[80px] -z-10 transform-gpu" />
 
       <div className="container mx-auto px-6 md:px-12 max-w-7xl">
-        
-        {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 md:mb-16">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
           >
-            <span className="text-primary font-semibold tracking-wider text-sm uppercase">Kegiatan Akademik</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-dark mt-2 mb-4">Jadwal Perkuliahan</h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full" />
+            <span className="text-primary font-semibold tracking-wider text-xs md:text-sm uppercase">Kegiatan Akademik</span>
+            <h2 className="text-2xl md:text-4xl font-bold text-dark mt-2 mb-3">Jadwal Perkuliahan</h2>
+            <div className="w-16 md:w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full" />
           </motion.div>
         </div>
 
-        {/* Schedule Grid */}
         <motion.div 
           ref={ref}
           variants={containerVariants}
@@ -106,13 +95,13 @@ const Schedule = () => {
             <motion.div 
               key={dayItem.id} 
               variants={cardVariants}
-              className="glass bg-white/80 rounded-2xl p-6 hover:-translate-y-2 transition-transform duration-300 hover:shadow-xl border border-slate-100"
+              className="glass bg-white/90 rounded-2xl p-6 hover:-translate-y-1.5 transition-transform duration-300 hover:shadow-lg border border-slate-100 transform-gpu"
             >
-              <h3 className="text-xl font-bold text-primary mb-4 pb-4 border-b border-slate-200">
+              <h3 className="text-lg md:text-xl font-bold text-primary mb-4 pb-3 border-b border-slate-200">
                 {dayItem.day}
               </h3>
               
-              <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-4">
                 {dayItem.subjects.map((subject, idx) => (
                   <div key={idx} className="flex flex-col gap-2 group">
                     <div className="flex items-start gap-3">
@@ -120,10 +109,10 @@ const Schedule = () => {
                         <BookOpen size={18} />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-slate-800 leading-tight">
+                        <h4 className="font-semibold text-slate-800 text-sm md:text-base leading-tight">
                           {subject.name}
                         </h4>
-                        <div className="flex flex-col gap-1 mt-2 text-sm text-slate-500">
+                        <div className="flex flex-col gap-1 mt-1.5 text-xs md:text-sm text-slate-500">
                           <div className="flex items-center gap-2">
                             <Clock size={14} className="text-secondary" />
                             <span>{subject.time}</span>
@@ -141,7 +130,6 @@ const Schedule = () => {
             </motion.div>
           ))}
         </motion.div>
-
       </div>
     </section>
   );
