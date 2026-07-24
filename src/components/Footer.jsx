@@ -32,7 +32,7 @@ const Footer = () => {
             </Link>
             
             <h2 className="text-xl md:text-2xl font-bold text-white mb-1">
-              2B Teknik Informatika
+              3B Teknik Informatika
             </h2>
             <p className="text-slate-400 text-sm md:text-base font-medium">
               Universitas Islam Balitar
@@ -69,7 +69,7 @@ const Footer = () => {
           className="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left"
         >
           <p className="text-xs text-slate-500">
-            &copy; {currentYear} Kelas 2B Teknik Informatika. All rights reserved.
+            &copy; {currentYear} Kelas 3B Teknik Informatika. All rights reserved.
           </p>
           <p className="text-xs text-slate-500 flex items-center gap-1">
             Dibuat dengan <span className="text-red-500 animate-pulse">❤</span> oleh Tim Developer Kelas.

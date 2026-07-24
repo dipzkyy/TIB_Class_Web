@@ -6,9 +6,9 @@ import { Users, Crown } from 'lucide-react';
 const membersData = [
   // Pengurus
   { id: 1, name: "Mochamad Nazar Sirot", role: "Ketua Kelas" },
-  { id: 2, name: "Tahta Alfina Pagelaran", role: "Sekretaris" },
+  { id: 2, name: "Zainun Abidin", role: "Wakil Ketua Kelas" },
+  { id: 4, name: "Tahta Alfina Pagelaran", role: "Sekretaris" },
   { id: 3, name: "Jazilatun Nabilla", role: "Bendahara" },
-  { id: 4, name: "Zainun Abidin", role: "Wakil Ketua Kelas" },
   // Anggota
   { id: 5, name: "Adelia Wahyu Bima Sakti", role: "Anggota" },
   { id: 6, name: "Aisha Calluella Putri Wijaya", role: "Anggota" },

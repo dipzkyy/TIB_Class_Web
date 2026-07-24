@@ -17,22 +17,22 @@ const Contact = () => {
         </svg>
       ),
       title: "Instagram",
-      detail: "@2b.teknikinformatika",
-      link: "https://instagram.com",
+      detail: "@3B.teknikinformatika",
+      link: "https://www.instagram.com/whois_inf_enginering2b?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
       color: "hover:text-[#E1306C]"
     },
     {
       icon: <Mail className="w-5 h-5 md:w-6 md:h-6" />,
       title: "Email",
-      detail: "kelas2bti@unisba.ac.id",
-      link: "mailto:kelas2bti@unisba.ac.id",
+      detail: "-",
+      link: "-",
       color: "hover:text-red-500"
     },
     {
       icon: <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />,
       title: "WhatsApp",
-      detail: "+62 812-3456-7890 (Ketua Kelas)",
-      link: "https://wa.me/6281234567890",
+      detail: "-",
+      link: "-",
       color: "hover:text-green-500"
     }
   ];

@@ -5,12 +5,12 @@ import { X, ZoomIn } from 'lucide-react';
 import fotoKelas from '../assets/fotokelas.png';
 
 const galleryItems = [
-  { id: 1, src: "https://picsum.photos/800/600?random=1", caption: "Diskusi Project Kelas" },
-  { id: 2, src: "https://picsum.photos/800/600?random=2", caption: "Presentasi Algoritma" },
-  { id: 3, src: "https://picsum.photos/800/600?random=3", caption: "Kerja Kelompok PBO" },
-  { id: 4, src: "https://picsum.photos/800/600?random=4", caption: "Praktikum Jaringan" },
-  { id: 5, src: "https://picsum.photos/800/600?random=5", caption: "Sesi Mentoring" },
-  { id: 6, src: "https://picsum.photos/800/600?random=6", caption: "Kumpul Himpunan" },
+  { id: 1, src: "src/assets/Gallery/afterUTS.png", caption: "After UAS 1" },
+  { id: 2, src: "src/assets/Gallery/bukber.jpeg", caption: "Bukber 2026" },
+  { id: 3, src: "src/assets/Gallery/fotbar1.jpeg", caption: "Fotbar 2025" },
+  { id: 4, src: "src/assets/Gallery/MomenMaba.jpeg", caption: "Maba 2025" },
+  { id: 5, src: "src/assets/Gallery/Teknik2025.jpeg", caption: "Maba Teknik 2025" },
+  { id: 6, src: "src/assets/Gallery/fotbar2.jpeg", caption: "After UTS 1" },
 ];
 
 const Gallery = () => {

@@ -32,7 +32,7 @@ const Hero = () => {
             
             <h1 className="text-base sm:text-3xl md:text-5xl lg:text-6xl font-bold leading-tight">
               Selamat Datang di Kelas <br />
-              <span className="text-gradient">2B Teknik Informatika</span>
+              <span className="text-gradient">3B Teknik Informatika</span>
             </h1>
             
             <p className="text-slate-600 text-[11px] sm:text-base md:text-xl max-w-2xl leading-snug sm:leading-relaxed line-clamp-3 sm:line-clamp-none">

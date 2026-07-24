@@ -73,7 +73,7 @@ const About = () => {
                 Kreativitas dalam <span className="text-accent">Sintaksis</span>.
               </h2>
               <p className="text-slate-300 text-sm md:text-lg leading-relaxed">
-                Kelas 2B Teknik Informatika bukan sekadar ruang kuliah. Kami adalah wadah kolaborasi tempat ide-ide inovatif dirancang dan dieksekusi. Berfokus pada pengembangan *software*, desain antarmuka, dan pemecahan masalah teknologi modern.
+                Kelas 3B Teknik Informatika bukan sekadar ruang kuliah. Kami adalah wadah kolaborasi tempat ide-ide inovatif dirancang dan dieksekusi. Berfokus pada pengembangan *software*, desain antarmuka, dan pemecahan masalah teknologi modern.
               </p>
             </div>
 

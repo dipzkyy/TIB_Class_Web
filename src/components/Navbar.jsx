@@ -39,9 +39,9 @@ const Navbar = () => {
           
           {/* Logo & Brand */}
           <Link to="home" smooth={true} duration={500} className="cursor-pointer flex items-center gap-3">
-            <img src={logo} alt="Logo 2B TI" className="w-10 h-10 object-contain" />
+            <img src={logo} alt="Logo 3B TI" className="w-10 h-10 object-contain" />
             <div className="flex flex-col">
-              <span className="font-bold text-lg leading-tight text-dark">2B Teknik Informatika</span>
+              <span className="font-bold text-lg leading-tight text-dark">3B Teknik Informatika</span>
               <span className="text-xs text-slate-500 font-medium">Universitas Islam Balitar</span>
             </div>
           </Link>
