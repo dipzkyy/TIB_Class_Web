@@ -7,7 +7,7 @@ import fotoKelas from "../assets/fotokelas.png";
 
 import afterUTS from "../assets/Gallery/afterUTS.png";
 import bukber from "../assets/Gallery/bukber.jpeg";
-import fotbar1 from "../assets/Gallery/fotbar1.jpeg";
+import fotbar1 from "../assets/Gallery/Fotbar1.jpeg";
 import fotbar2 from "../assets/Gallery/fotbar2.jpeg";
 import momenMaba from "../assets/Gallery/MomenMaba.jpeg";
 import teknik2025 from "../assets/Gallery/Teknik2025.jpeg";
