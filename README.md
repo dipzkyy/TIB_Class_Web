@@ -272,16 +272,6 @@ Website menggunakan berbagai animasi modern seperti
 
 ---
 
-# 🖼️ Assets
-
-| Asset | Fungsi |
-|---------|---------|
-| logo.png | Logo Website |
-| coding.gif | Hero Illustration |
-| fotokelas.png | Background Section |
-
----
-
 # 📈 Performance
 
 Target performa website
