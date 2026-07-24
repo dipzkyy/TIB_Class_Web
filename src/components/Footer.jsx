@@ -72,7 +72,7 @@ const Footer = () => {
             &copy; {currentYear} Kelas 3B Teknik Informatika. All rights reserved.
           </p>
           <p className="text-xs text-slate-500 flex items-center gap-1">
-            Dibuat dengan <span className="text-red-500 animate-pulse">❤</span> oleh Tim Developer Kelas.
+            Dibuat dengan <span className="text-red-500 animate-pulse">🧠💪🏻</span> oleh Tim Developer Kelas.
           </p>
         </motion.div>
       </div>
