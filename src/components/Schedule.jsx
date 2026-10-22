@@ -8,39 +8,31 @@ const scheduleData = [
     id: 1,
     day: "Senin",
     subjects: [
-      { name: "Algoritma & Struktur Data", time: "08:00 - 10:30", room: "Ruang LAB 1" },
-      { name: "Basis Data Lanjut", time: "11:00 - 13:30", room: "Ruang LAB 2" }
+      { name: "Analisa dan Perancangan Sistem", time: "10:30 - 12:00", room: "A2-07" },
+      { name: "Jaringan Komputer", time: "15:30 - 17:00", room: "A2-07" }
     ]
   },
   {
     id: 2,
-    day: "Selasa",
+    day: "Rabu",
     subjects: [
-      { name: "Pemrograman Berorientasi Objek", time: "08:00 - 10:30", room: "Ruang LAB 1" },
-      { name: "Matematika Diskrit", time: "13:30 - 16:00", room: "Ruang Teori A" }
+      { name: "Metode Numerik", time: "07:30 - 09:00", room: "A2-08" },
+      { name: "Teknologi Informasi dan Komputer", time: "09:00 - 10:30", room: "A2-08" }
     ]
   },
   {
     id: 3,
-    day: "Rabu",
+    day: "Kamis",
     subjects: [
-      { name: "Sistem Operasi", time: "09:00 - 11:30", room: "Ruang Teori B" },
-      { name: "Pemrograman Web Lanjut", time: "13:00 - 15:30", room: "Ruang LAB 3" }
+      { name: "Rekayasa Perangkat Lunak", time: "09:00 - 10:30", room: "A2-07" },
+      { name: "Kewirausahaan Dasar", time: "10:30 - 12:00", room: "A2-06" }
     ]
   },
   {
     id: 4,
-    day: "Kamis",
-    subjects: [
-      { name: "Interaksi Manusia & Komputer", time: "08:00 - 10:30", room: "Ruang LAB 2" }
-    ]
-  },
-  {
-    id: 5,
     day: "Jumat",
     subjects: [
-      { name: "Pendidikan Agama", time: "08:00 - 09:40", room: "Ruang Teori A" },
-      { name: "Kewarganegaraan", time: "10:00 - 11:40", room: "Ruang Teori A" }
+      { name: "Pemrograman Web", time: "12:30 - 14:00", room: "A2-07" }
     ]
   }
 ];
