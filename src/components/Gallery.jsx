@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ZoomIn, ChevronLeft, ChevronRight, Camera } from "lucide-react";
 
-// Assets
-import fotoKelas from "../assets/fotokelas.png";
-
+// Assets asli project
 import afterUTS from "../assets/Gallery/afterUTS.png";
 import bukber from "../assets/Gallery/bukber.jpeg";
 import fotbar1 from "../assets/Gallery/Fotbar1.jpeg";
@@ -15,71 +13,37 @@ import teknik2025 from "../assets/Gallery/Teknik2025.jpeg";
 import campJamburono from "../assets/Gallery/CampJamburono.jpeg";
 import inFrame from "../assets/Gallery/inFrame.jpeg";
 
-// Data galeri (statis, tidak berubah)
 const galleryItems = [
-  { id: 1, src: afterUTS, caption: "After UTS 1" },
-  { id: 2, src: bukber, caption: "Bukber 2026" },
-  { id: 3, src: fotbar1, caption: "Fotbar Semester 1" },
-  { id: 4, src: momenMaba, caption: "Maba 2025" },
-  { id: 5, src: teknik2025, caption: "Maba Teknik 2025" },
-  { id: 6, src: fotbar2, caption: "After UTS 2" },
-  { id: 7, src: campJamburono, caption: "Camp Jamburono" },
-  { id: 8, src: inFrame, caption: "In Frame" },
+  { id: 1, src: afterUTS, caption: "After UTS 1", category: "Akademik", date: "Semester 1" },
+  { id: 2, src: bukber, caption: "Bukber Kebersamaan", category: "Kebersamaan", date: "Tahun 2026" },
+  { id: 3, src: fotbar1, caption: "Fotbar Semester 1", category: "Akademik", date: "Semester 1" },
+  { id: 4, src: momenMaba, caption: "Momen Maba 2025", category: "Orientasi", date: "Awal Kuliah" },
+  { id: 5, src: teknik2025, caption: "Maba Teknik 2025", category: "Orientasi", date: "Fakultas Teknik" },
+  { id: 6, src: fotbar2, caption: "After UTS 2", category: "Akademik", date: "Semester 2" },
+  { id: 7, src: campJamburono, caption: "Camp Jamburono", category: "Outdoor", date: "Kegiatan Alam" },
+  { id: 8, src: inFrame, caption: "In Frame Kelas 3B", category: "Kebersamaan", date: "Dokumentasi" },
 ];
 
-/**
- * LazyImage - Komponen gambar dengan:
- * - Skeleton placeholder saat belum terlihat atau belum dimuat
- * - Intersection Observer via useInView agar gambar hanya dirender saat mendekati viewport
- * - Transisi opacity yang halus setelah gambar selesai dimuat
- */
-const LazyImage = ({ src, alt, className }) => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    rootMargin: "200px 0px", // mulai render 200px sebelum masuk viewport
-  });
-  const [loaded, setLoaded] = useState(false);
-
-  return (
-    <div ref={ref} className={`${className} relative overflow-hidden`}>
-      {/* Skeleton placeholder */}
-      {(!inView || !loaded) && (
-        <div className="absolute inset-0 bg-gray-800 animate-pulse" />
-      )}
-
-      {/* Gambar hanya dirender jika sudah masuk area pandang */}
-      {inView && (
-        <img
-          src={src}
-          alt={alt}
-          loading="lazy"
-          onLoad={() => setLoaded(true)}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-            loaded ? "opacity-100" : "opacity-0"
-          }`}
-        />
-      )}
-    </div>
-  );
-};
+const categories = ["Semua", "Akademik", "Kebersamaan", "Orientasi", "Outdoor"];
 
 const Gallery = () => {
-  // Indeks gambar yang sedang ditampilkan di lightbox, null = tertutup
+  const [selectedCategory, setSelectedCategory] = useState("Semua");
   const [selectedIndex, setSelectedIndex] = useState(null);
   const closeButtonRef = useRef(null);
   const previousFocusRef = useRef(null);
 
-  // Observer untuk animasi masuk section (judul + grid)
   const { ref: sectionRef, inView } = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.05,
   });
 
-  const selectedImage =
-    selectedIndex !== null ? galleryItems[selectedIndex] : null;
-  const totalItems = galleryItems.length;
+  const filteredItems = selectedCategory === "Semua"
+    ? galleryItems
+    : galleryItems.filter((item) => item.category === selectedCategory);
 
-  // Callback stabil untuk navigasi lightbox
+  const selectedImage = selectedIndex !== null ? filteredItems[selectedIndex] : null;
+  const totalItems = filteredItems.length;
+
   const handleOpen = useCallback((index) => {
     previousFocusRef.current = document.activeElement;
     setSelectedIndex(index);
@@ -101,7 +65,6 @@ const Gallery = () => {
     );
   }, [totalItems]);
 
-  // Efek untuk: keyboard navigation, body scroll lock, fokus manajemen
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (selectedIndex === null) return;
@@ -117,13 +80,9 @@ const Gallery = () => {
     if (selectedIndex !== null) {
       document.addEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "hidden";
-      // Fokus tombol close setelah transisi ringan
-      setTimeout(() => {
-        closeButtonRef.current?.focus();
-      }, 0);
+      setTimeout(() => closeButtonRef.current?.focus(), 50);
     } else {
       document.body.style.overflow = "";
-      // Kembalikan fokus ke elemen sebelumnya
       if (previousFocusRef.current) {
         previousFocusRef.current.focus();
         previousFocusRef.current = null;
@@ -140,52 +99,68 @@ const Gallery = () => {
     <section
       id="gallery"
       ref={sectionRef}
-      className="relative py-20 md:py-24 min-h-screen flex items-center"
+      className="relative py-20 md:py-28 bg-slate-900 text-white overflow-hidden tech-grid-dark"
     >
-      {/* Background image tetap dengan overlay */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src={fotoKelas}
-          alt="Background foto kelas sebagai latar galeri"
-          className="w-full h-full object-cover object-center"
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-dark/90" />
-      </div>
+      {/* Ambient background glows */}
+      <div className="absolute top-1/4 right-10 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/4 left-10 w-96 h-96 bg-accent/10 rounded-full blur-[120px] pointer-events-none" />
 
-      {/* Konten utama */}
-      <div className="container mx-auto px-6 md:px-12 max-w-7xl relative z-10">
-        {/* Heading dengan animasi masuk */}
-        <div className="text-center mb-12 md:mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="text-secondary font-semibold tracking-wider text-xs md:text-sm uppercase">
-              Memori Kelas
-            </span>
-            <h2 className="text-2xl md:text-4xl font-bold text-white mt-2 mb-3">
-              Galeri Kami
-            </h2>
-            <div className="w-16 md:w-20 h-1 bg-gradient-to-r from-secondary to-accent mx-auto rounded-full" />
-          </motion.div>
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-7xl relative z-10">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-semibold uppercase tracking-wider mb-3">
+            <Camera size={14} />
+            <span>Dokumentasi Visual</span>
+          </div>
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-heading font-extrabold tracking-tight text-white mb-3">
+            Galeri Memori Kelas 3B
+          </h2>
+          <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
+            Kumpulan rekam jejak momen perkuliahan, praktikum, ujian, dan kebersamaan di luar kelas bersama keluarga besar Teknik Informatika 3B.
+          </p>
         </div>
 
-        {/* Grid galeri */}
-        <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {galleryItems.map((item, index) => (
+        {/* Category Filters */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+          {categories.map((cat) => {
+            const isSelected = selectedCategory === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => {
+                  setSelectedCategory(cat);
+                  setSelectedIndex(null);
+                }}
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-heading font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+                  isSelected
+                    ? "bg-primary text-white shadow-md shadow-primary/20"
+                    : "bg-slate-800/80 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-700/80"
+                }`}
+              >
+                {cat === "Semua" ? "Semua Momen (8)" : cat}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Gallery Grid */}
+        <motion.div 
+          layout
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+        >
+          {filteredItems.map((item, index) => (
             <motion.div
+              layout
               key={item.id}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.4, delay: index * 0.08 }}
-              whileHover={{ y: -6 }}
-              className="group relative rounded-2xl overflow-hidden cursor-pointer aspect-video bg-dark/50 border border-white/10 shadow-lg"
+              transition={{ duration: 0.35, delay: index * 0.05 }}
+              className="group relative rounded-2xl overflow-hidden cursor-pointer bg-slate-800/90 border border-slate-700/70 shadow-lg hover:border-slate-500 hover:shadow-2xl transition-all"
               onClick={() => handleOpen(index)}
               role="button"
               tabIndex={0}
-              aria-label={`Lihat gambar ${item.caption}`}
+              aria-label={`Buka foto ${item.caption}`}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
@@ -193,96 +168,132 @@ const Gallery = () => {
                 }
               }}
             >
-              {/* Gambar dengan lazy loading + skeleton + efek zoom saat hover */}
-              <LazyImage
-                src={item.src}
-                alt={item.caption}
-                className="w-full h-full transition-transform duration-500 group-hover:scale-110"
-              />
+              {/* Image Container with 4:3 Aspect Ratio */}
+              <div className="relative aspect-[4/3] overflow-hidden bg-slate-950">
+                <img
+                  src={item.src}
+                  alt={item.caption}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out"
+                />
+                
+                {/* Category Pill Tag on Top Left */}
+                <div className="absolute top-3 left-3">
+                  <span className="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-slate-950/80 backdrop-blur-sm text-teal-300 border border-slate-700/80">
+                    {item.category}
+                  </span>
+                </div>
 
-              {/* Overlay hover: ikon ZoomIn & caption */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 pointer-events-none">
-                <ZoomIn size={26} className="text-white mb-2 opacity-90" />
-                <h3 className="text-white font-semibold text-base">
+                {/* Hover overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-[11px] text-slate-400 font-medium block">{item.date}</span>
+                      <h3 className="text-white font-heading font-bold text-sm leading-snug">{item.caption}</h3>
+                    </div>
+                    <div className="p-2 rounded-full bg-white/20 text-white">
+                      <ZoomIn size={16} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Caption for Accessibility & Clear Viewing */}
+              <div className="p-3 bg-slate-850 border-t border-slate-800 flex items-center justify-between">
+                <span className="text-xs font-semibold text-slate-200 truncate pr-2">
                   {item.caption}
-                </h3>
+                </span>
+                <span className="text-[10px] text-slate-400 shrink-0">
+                  {item.date}
+                </span>
               </div>
             </motion.div>
           ))}
         </motion.div>
       </div>
 
-      {/* Lightbox dengan navigasi & aksesibilitas */}
+      {/* Accessible Lightbox Modal */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div
             key="lightbox"
-            className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 md:p-10"
+            className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 md:p-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
             role="dialog"
             aria-modal="true"
-            aria-label="Tampilan gambar galeri"
+            aria-label="Tampilan penuh foto galeri"
           >
-            {/* Tombol tutup */}
+            {/* Close button */}
             <button
               ref={closeButtonRef}
               onClick={handleClose}
-              className="absolute top-6 right-6 p-3 rounded-full bg-white/10 hover:bg-white/20 transition z-10"
-              aria-label="Tutup lightbox"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white z-20"
+              aria-label="Tutup foto"
             >
-              <X className="text-white" size={26} />
+              <X size={22} />
             </button>
 
-            {/* Navigasi kiri */}
+            {/* Previous button */}
             {totalItems > 1 && (
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   handlePrev();
                 }}
-                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 transition z-10"
-                aria-label="Gambar sebelumnya"
+                className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 p-2.5 sm:p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white z-20"
+                aria-label="Foto sebelumnya"
               >
-                <ChevronLeft className="text-white" size={30} />
+                <ChevronLeft size={24} />
               </button>
             )}
 
-            {/* Navigasi kanan */}
+            {/* Next button */}
             {totalItems > 1 && (
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   handleNext();
                 }}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 transition z-10"
-                aria-label="Gambar berikutnya"
+                className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 p-2.5 sm:p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white z-20"
+                aria-label="Foto selanjutnya"
               >
-                <ChevronRight className="text-white" size={30} />
+                <ChevronRight size={24} />
               </button>
             )}
 
-            {/* Kontainer gambar lightbox dengan animasi per gambar */}
+            {/* Lightbox content card */}
             <motion.div
               key={selectedIndex}
-              initial={{ scale: 0.9, opacity: 0 }}
+              initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.25 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-5xl w-full max-h-[90vh] rounded-2xl overflow-hidden shadow-2xl"
+              className="relative max-w-4xl w-full max-h-[85vh] rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 shadow-2xl flex flex-col"
             >
-              <img
-                src={selectedImage.src}
-                alt={selectedImage.caption}
-                className="w-full h-full object-contain bg-black"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-5">
-                <h3 className="text-white text-xl font-semibold">
-                  {selectedImage.caption}
-                </h3>
+              <div className="relative flex-1 flex items-center justify-center bg-black overflow-hidden max-h-[72vh]">
+                <img
+                  src={selectedImage.src}
+                  alt={selectedImage.caption}
+                  className="w-full h-full object-contain max-h-[72vh]"
+                />
+              </div>
+              <div className="p-4 bg-slate-900 border-t border-slate-800 flex items-center justify-between text-white">
+                <div>
+                  <h3 className="font-heading font-bold text-base sm:text-lg">
+                    {selectedImage.caption}
+                  </h3>
+                  <span className="text-xs text-teal-400 font-medium">
+                    {selectedImage.category} • {selectedImage.date}
+                  </span>
+                </div>
+                <div className="text-xs font-semibold px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300">
+                  {selectedIndex + 1} / {totalItems}
+                </div>
               </div>
             </motion.div>
           </motion.div>

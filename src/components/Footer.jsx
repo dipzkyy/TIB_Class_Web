@@ -1,80 +1,90 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-scroll';
+import { Code2 } from 'lucide-react';
 import logo from '../assets/logo.png';
+
+const footerLinks = [
+  { title: 'Home', id: 'home' },
+  { title: 'Tentang', id: 'about' },
+  { title: 'Jadwal', id: 'schedule' },
+  { title: 'Galeri', id: 'gallery' },
+  { title: 'Anggota', id: 'members' },
+  { title: 'Kontak', id: 'contact' },
+];
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
+  const scrollToSection = (id) => {
+    const target = document.getElementById(id);
+    if (!target) return;
+    const navHeight = 72;
+    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+  };
+
   return (
-    <footer className="bg-dark text-slate-300 border-t border-white/10 relative overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+    <footer className="bg-slate-950 text-slate-300 border-t border-slate-800 relative overflow-hidden">
+      {/* Top accent border line */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[2px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
-      <div className="container mx-auto px-6 md:px-12 max-w-7xl py-10 md:py-14 relative z-10">
-        <div className="flex flex-col items-center text-center">
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-7xl py-12 md:py-16 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center justify-between pb-10 border-b border-slate-800/80">
           
-          <motion.div 
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="flex flex-col items-center mb-6"
-          >
-            <Link to="home" smooth={true} duration={500} className="cursor-pointer mb-4 group inline-block">
-              <div className="p-2.5 bg-white/5 rounded-xl border border-white/10 group-hover:border-primary/50 transition-all duration-300">
-                <img 
-                  src={logo} 
-                  alt="Logo Kelas 2B" 
-                  className="w-12 h-12 object-contain group-hover:scale-105 transition-transform duration-300"
-                  loading="lazy"
-                />
+          {/* Brand Info */}
+          <div className="md:col-span-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <button
+              onClick={() => scrollToSection('home')}
+              className="p-2 bg-slate-900 rounded-2xl border border-slate-800 hover:border-primary/50 transition-colors shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              aria-label="Kembali ke atas"
+            >
+              <img
+                src={logo}
+                alt="Logo 3B Teknik Informatika UNISBA"
+                className="w-12 h-12 object-contain"
+                loading="lazy"
+              />
+            </button>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="font-heading font-extrabold text-lg sm:text-xl text-white">
+                  Teknik Informatika 3B
+                </h3>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/20 text-teal-300 border border-primary/30">
+                  UNISBA
+                </span>
               </div>
-            </Link>
-            
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-1">
-              3B Teknik Informatika
-            </h2>
-            <p className="text-slate-400 text-sm md:text-base font-medium">
-              Universitas Islam Balitar
-            </p>
-          </motion.div>
+              <p className="text-slate-400 text-xs sm:text-sm mt-0.5">
+                Universitas Islam Balitar • Blitar, Jawa Timur
+              </p>
+            </div>
+          </div>
 
-          <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-5 md:gap-8 mb-8"
-          >
-            {['Home', 'Tentang', 'Jadwal', 'Galeri', 'Anggota', 'Kontak'].map((item, index) => (
-              <Link
-                key={index}
-                to={item.toLowerCase() === 'tentang' ? 'about' : item.toLowerCase()}
-                smooth={true}
-                duration={500}
-                className="text-slate-400 hover:text-primary transition-colors cursor-pointer font-medium text-xs md:text-sm tracking-wide uppercase"
+          {/* Quick Links */}
+          <div className="md:col-span-6 flex flex-wrap md:justify-end items-center gap-4 sm:gap-6">
+            {footerLinks.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className="text-xs sm:text-sm font-heading font-medium text-slate-400 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md px-1 py-0.5"
               >
-                {item}
-              </Link>
+                {item.title}
+              </button>
             ))}
-          </motion.div>
+          </div>
 
         </div>
 
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left"
-        >
-          <p className="text-xs text-slate-500">
-            &copy; {currentYear} Kelas 3B Teknik Informatika. All rights reserved.
+        {/* Bottom copyright and developer credits */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 text-center sm:text-left">
+          <p>
+            &copy; {currentYear} Kelas 3B Teknik Informatika UNISBA. Seluruh hak cipta dilindungi.
           </p>
-          <p className="text-xs text-slate-500 flex items-center gap-1">
-            Dibuat dengan <span className="text-red-500 animate-pulse">🧠💪🏻</span> oleh Tim Developer Kelas.
-          </p>
-        </motion.div>
+          <div className="flex items-center gap-1.5 font-medium text-slate-400">
+            <Code2 size={15} className="text-primary" />
+            <span>Dikembangkan dengan dedikasi oleh Tim Mahasiswa Kelas 3B</span>
+          </div>
+        </div>
+
       </div>
     </footer>
   );

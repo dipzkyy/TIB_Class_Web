@@ -1,28 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronUp } from 'lucide-react';
-import { animateScroll as scroll } from 'react-scroll';
 
 const BackToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const toggleVisibility = () => {
-      // Tombol muncul setelah scroll 500px ke bawah
-      if (window.scrollY > 500) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      setIsVisible(window.scrollY > 400);
     };
-    window.addEventListener('scroll', toggleVisibility);
+    window.addEventListener('scroll', toggleVisibility, { passive: true });
     return () => window.removeEventListener('scroll', toggleVisibility);
   }, []);
 
   const scrollToTop = () => {
-    scroll.scrollToTop({
-      duration: 800,
-      smooth: 'easeInOutQuart'
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
     });
   };
 
@@ -30,16 +24,16 @@ const BackToTop = () => {
     <AnimatePresence>
       {isVisible && (
         <motion.button
-          initial={{ opacity: 0, scale: 0.5, y: 20 }}
+          initial={{ opacity: 0, scale: 0.8, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.5, y: 20 }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          exit={{ opacity: 0, scale: 0.8, y: 15 }}
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.92 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-[90] p-3 rounded-full bg-primary text-white shadow-[0_4px_20px_rgba(37,99,235,0.4)] hover:bg-blue-700 hover:shadow-[0_4px_25px_rgba(37,99,235,0.6)] transition-all duration-300 border border-white/20 backdrop-blur-md"
+          className="fixed bottom-6 right-6 z-[90] p-3 rounded-xl bg-slate-900 text-white shadow-xl hover:bg-primary border border-slate-700 hover:border-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           aria-label="Kembali ke atas"
         >
-          <ChevronUp className="w-6 h-6" />
+          <ChevronUp className="w-5 h-5" />
         </motion.button>
       )}
     </AnimatePresence>

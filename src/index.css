@@ -5,20 +5,32 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
   }
   body {
     @apply bg-background text-dark font-sans overflow-x-hidden antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight;
   }
 }
 
 @layer utilities {
   .glass {
-    @apply bg-white/95 md:bg-white/70 md:backdrop-blur-md border border-white/40 shadow-glass transform-gpu;
+    @apply bg-white/85 backdrop-blur-md border border-slate-200/70 shadow-soft;
   }
   .glass-dark {
-    @apply bg-dark/95 md:bg-dark/70 md:backdrop-blur-md border border-white/10 shadow-glass transform-gpu;
+    @apply bg-navy-dark/85 backdrop-blur-md border border-white/10 shadow-projector;
   }
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-accent;
+  }
+  .tech-grid {
+    background-image: radial-gradient(rgba(37, 99, 235, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .tech-grid-dark {
+    background-image: radial-gradient(rgba(20, 184, 166, 0.12) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
 }
